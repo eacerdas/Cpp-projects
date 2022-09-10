@@ -117,15 +117,9 @@ private:
 	vector <int> credits;
 };
 
-
-
-
-
-
 ///////////// GLOBAL VARS ///////////
 
 int amountGrades = 0;
-float GPA = 0.0f;
 vector<float> grades{};
 vector<int> credits{};
 
