@@ -5,7 +5,7 @@
 
 using namespace std;
 
-//// FUNCTIONS
+///////////// FUNCTIONS /////////////
 
 int student_selector(vector <Student> students_list) {
 	int userSelection;
@@ -25,7 +25,7 @@ int student_selector(vector <Student> students_list) {
 	return userSelection;
 }
 
-void change_students_name(vector <Student>& students_list, int studentChosen_) {
+void change_students_name(vector <Student> &students_list, int studentChosen_) {
 	string newName;
 	//cout << "You are about to change the name of " << students_list[studentChosen_ - 1].get_name() << "\n";
 	cout << "Please type the new name for the student: ";
@@ -36,13 +36,70 @@ void change_students_name(vector <Student>& students_list, int studentChosen_) {
 	cout << "The new name of the student is: " << students_list[studentChosen_ - 1].get_name() << "\n \n";
 }
 
-void student_options_selector(vector <Student> &students_list, int studentChosen_) {
+void add_new_course(vector <Student> students_list, vector <Grade> &grades_list, int studentChosen_) {
+
+	int studentId = students_list[studentChosen_ - 1].get_id();
+	int courseId;
+	char grade = 'Z';
+
+	cout << "You are about to add a new course for " << students_list[studentChosen_ - 1].get_name() << ": \n";
+	cout << "1. Algebra \n";
+	cout << "2. Physics \n";
+	cout << "3. English \n";
+	cout << "4. Economics \n";
+
+	cout << "Please type the number of the course from the list above: \n";
+	cin >> courseId;
+	system("CLS");
+
+	Grade new_grade(studentId, courseId, grade);
+
+	grades_list.push_back(new_grade);
+
+	cout << "The new course for " << students_list[studentChosen_ - 1].get_name() << " is: ";
+
+	switch (grades_list[0].get_courseId()) {
+	case 1: cout << "Algebra. \n \n"; break;
+	case 2: cout << "Physics. \n \n"; break;
+	case 3: cout << "English. \n \n"; break;
+	case 4: cout << "Economics. \n \n"; break;
+	}
+}
+
+void get_enrolled_courses(vector <Grade> &grades_list, int studentChosen_) {	
+	int counter = 0;
+	int flag = 0;
+	for (int i = 0; i < grades_list.size(); i++) {
+		if (studentChosen_ == grades_list[i].get_studentId()) {
+			if (flag == 0) {
+				flag = 1; cout << "The student is currently enrolled in " << counter << " courses: \n";
+			}
+
+			counter++;
+			cout << counter << ". ";
+
+			switch (grades_list[i].get_courseId()) {
+			case 1: cout << "Algebra. \n \n"; break;
+			case 2: cout << "Physics. \n \n"; break;
+			case 3: cout << "English. \n \n"; break;
+			case 4: cout << "Economics. \n \n"; break;
+			}
+		}
+	}
+
+	if (counter == 0){
+		cout << "There are no courses in which this student is currently enrolled. \n \n";
+	}
+
+};
+
+void student_options_selector(vector <Grade> &grades_list, vector <Student> &students_list, int studentChosen_) {
 	int userSelection;
 	string optionSelected;
 	cout << "These are " << students_list[studentChosen_ - 1].get_name() << "'s options: \n";
-	//cout << "3. Add courses for the student \n";
-	//cout << "2. Add grades for the student \n";
-	cout << "1. Edit the name of the student \n";
+	cout << "1. Add courses for the student \n";
+	cout << "2. Check for the enrolled courses of the student \n";
+	cout << "3. Edit the name of the student \n";
 	//cout << "4. Get the last GPA calculated for the student \n";
 	
 	cout << "\nWhich option do you want?: ";
@@ -50,21 +107,20 @@ void student_options_selector(vector <Student> &students_list, int studentChosen
 	cin >> userSelection;
 
 	switch (userSelection) {
-	case 3: optionSelected = "Add courses for "; break;
-	case 2: optionSelected = "Add grades for "; break;
-	case 1: optionSelected = "Edit the name of "; break;
+	case 1: optionSelected = "Add courses for "; break;
+	case 2: optionSelected = "Check enrolled courses for "; break;
+	case 3: optionSelected = "Edit the name of "; break;
 	case 4: optionSelected = "Get the GPA of "; break;
 	}
 
 	system("CLS");
 
-	cout << "\nThe option selected is: " << optionSelected << students_list[studentChosen_ - 1].get_name() << "\n \n";
-
+	cout << "The option selected is: " << optionSelected << students_list[studentChosen_ - 1].get_name() << "\n \n";
 
 	switch (userSelection) { // 1. add courses 2. add grades, 3. change name, 4. Get gpa
-	case 3: break; //add_new_course(students, courses, &grades, studentChosen); 
-	case 2: break;
-	case 1: change_students_name(students_list, studentChosen_); break;
+	case 1: add_new_course(students_list, grades_list, studentChosen_); break; 
+	case 2: get_enrolled_courses(grades_list, studentChosen_); break;
+	case 3: change_students_name(students_list, studentChosen_); break;
 	case 4: break;
 	}
 
@@ -73,7 +129,7 @@ void student_options_selector(vector <Student> &students_list, int studentChosen
 
 bool ask_to_exit() {
 	int userInput;
-	bool want_to_exit;
+	bool want_to_exit = false;
 	cout << "Do you want to finish the execution or to continue? : \n";
 	cout << "1. Continue \n";
 	cout << "2. Exit \n";
@@ -91,28 +147,6 @@ bool ask_to_exit() {
 
 	return want_to_exit;
 };
-
-/*void add_new_course(vector <Student> students_list, vector <Course> courses_list, vector <Grade> grades_list, int studentChosen_) {
-	int userSelection;
-
-	cout << "You are about to add a new course for " << students_list[studentChosen_ - 1].get_name() << "\n ";
-	cout << "Please type the id of the course from the following list: \n \n";
-	cout << "1. Algebra \n";
-	cout << "2. Physics \n";
-	cout << "3. English \n";
-	cout << "4. Economics \n";
-
-	cin >> userSelection;
-
-	int whereToAppend = grades_list.size();
-
-	switch (userSelection) {
-	case 1: grades_list[whereToAppend].push_back(1); break;
-	case 2: grades_list[whereToAppend].push_back(2); break;
-	case 3: grades_list[whereToAppend].push_back(3); break;
-	case 4: grades_list[whereToAppend].push_back(4); break;
-	}
-}*/
 
 /*void set_grades(vector <float>* grades, vector <int>* credits) {
 	char grade_in;
@@ -201,13 +235,11 @@ int amountGrades = 0;
 
 int main() { 
 
-	cout << "Main program, Hello! \n \n";
+	cout << "Hello! Welcome to the main program. \n \n";
 
 	while (exitFlag == false) {
-
 		studentChosen = student_selector(students);
-		student_options_selector(students, studentChosen);
-
+		student_options_selector(grades, students, studentChosen);
 		exitFlag = ask_to_exit();
 	}
 

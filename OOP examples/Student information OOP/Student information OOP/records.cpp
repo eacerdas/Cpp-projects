@@ -78,19 +78,28 @@
 /////////////////////// CLASS GRADE ///////////////////////
 
 	Grade::Grade() {
-		student_id = 0;
-		course_id = 0;
+		studentId = 0;
+		courseId = 0;
 		grade = {};
 
 	}
 
 	Grade::Grade(int student_id_i, int course_id_i, char grade_i) {
-		student_id = student_id_i;
-		course_id = course_id_i;
+		studentId = student_id_i;
+		courseId = course_id_i;
 		grade = grade_i;
 	}
 
-	float Grade::get_grade() {
+	int Grade::get_studentId() {
+		return studentId;
+	}
+
+	int Grade::get_courseId() {
+		return courseId;
+	}
+
+
+	char Grade::get_grade() {
 		return grade;
 	}
 

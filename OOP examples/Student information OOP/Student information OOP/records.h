@@ -54,13 +54,15 @@
 		Grade();
 		Grade(int student_id_i, int course_id_i, char grade_i);
 
-		float get_grade();
+		int get_studentId();
+		int get_courseId();
+		char get_grade();
 
 		void set_grade(float grade_);
 
 	private:
-		int student_id;
-		int course_id;
+		int studentId;
+		int courseId;
 		char grade;
 	};
 
