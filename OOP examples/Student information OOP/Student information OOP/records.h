@@ -55,7 +55,7 @@
 
 	public:
 		Grade();
-		Grade(int student_id_i, int course_id_i, char grade_i);
+		Grade(int studentId_i, int courseId_i, char grade_i);
 
 		int get_studentId();
 		int get_courseId();
@@ -65,23 +65,27 @@
 	};
 
 	/////////////////////// STUDENT RECORDS CLASS ///////////////////////
-	/*class StudentRecords {
+	class StudentRecords {
 	private:
 		std::vector <Student> students;
 		std::vector <Course> courses;
 		std::vector <Grade> grades;
 
-		float get_numeric_grade();
+		float get_numeric_grade(char grade_in);
 
 	public:
-		StudentRecords();
 
-		void add_student(int id);
-		void add
+		void add_student(int id_, std::string name_);
+		void add_course(int id_, std::string name_, int credits_);
+		void add_grade(int studentId_, int courseId_, char gradeId_);
 
+		//GETTERS
+		float get_gpa(int studentChosen_);
+		int get_students_list_size();
+		std::string get_student_name(int studentChosen_);
 
-	};*/
-
-
+		//SETTERS 
+		void set_student_name(std::string name_, int studentChosen_);
+	};
 
 #endif // !RECORDS_H

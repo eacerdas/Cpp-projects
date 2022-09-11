@@ -75,12 +75,11 @@
 		studentId = 0;
 		courseId = 0;
 		grade = {};
-
 	}
 
-	Grade::Grade(int student_id_i, int course_id_i, char grade_i) {
-		studentId = student_id_i;
-		courseId = course_id_i;
+	Grade::Grade(int studentId_i, int courseId_i, char grade_i) {
+		studentId = studentId_i;
+		courseId = courseId_i;
 		grade = grade_i;
 	}
 
@@ -101,34 +100,58 @@
 		grade = grade_;
 	}
 
-/////////////////////// STUDENT RECORDS CLASS ///////////////////////
+	/////////////////////// STUDENT RECORDS CLASS ///////////////////////
 
-	/*Grade::Grade() {
-		studentId = 0;
-		courseId = 0;
-		grade = {};
-
+	float StudentRecords::get_numeric_grade(char grade_in) {
+		float numericGrade = 0.0f;
+		switch (grade_in) {
+		case 'a': {
+			numericGrade = 4.0f; break;
+		}
+		case 'b': {
+			numericGrade = 3.0f; break;
+		}
+		case 'c': {
+			numericGrade = 2.0f; break;
+		}
+		case 'd': {
+			numericGrade = 1.0f; break;
+		}
+		case 'f': {
+			numericGrade = 0.0f; break;
+		}
+		}
+		return numericGrade;
 	}
 
-	Grade::Grade(int student_id_i, int course_id_i, char grade_i) {
-		studentId = student_id_i;
-		courseId = course_id_i;
-		grade = grade_i;
+	void StudentRecords::add_student(int id_, std::string name_) {
+		students.push_back(Student(id_, name_));
+	}
+	void StudentRecords::add_course(int id_, std::string name_, int credits_) {
+		courses.push_back(Course(id_, name_, credits_));
+	}
+	void StudentRecords::add_grade(int studentId_, int courseId_, char gradeId_) {
+		grades.push_back(Grade(studentId_, courseId_, gradeId_));
 	}
 
-	int Grade::get_studentId() {
-		return studentId;
+	//GETTERS
+	int StudentRecords::get_students_list_size() {
+		int size = students.size();
+		return size;
 	}
 
-	int Grade::get_courseId() {
-		return courseId;
+	std::string StudentRecords::get_student_name(int studentChosen_) {
+		return students[studentChosen_].get_name();
 	}
 
 
-	char Grade::get_grade() {
-		return grade;
+	//SETTERS
+	void StudentRecords::set_student_name(std::string name_, int studentChosen_) {
+		students[studentChosen_-1].set_name(name_);
 	}
 
-	void Grade::set_grade(float grade_) {
-		grade = grade_;
+	//METHODS
+
+	/*float StudentRecords::get_gpa(int studentChosen_) {
+		//for later
 	}*/
