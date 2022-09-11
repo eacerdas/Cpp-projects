@@ -98,7 +98,7 @@ void student_options_selector(vector <Grade> &grades_list, vector <Student> &stu
 	string optionSelected;
 	cout << "These are " << students_list[studentChosen_ - 1].get_name() << "'s options: \n";
 	cout << "1. Add courses for the student \n";
-	cout << "2. Check for the enrolled courses of the student \n";
+	cout << "2. Check for the courses in which the student is enrolled \n";
 	cout << "3. Edit the name of the student \n";
 	//cout << "4. Get the last GPA calculated for the student \n";
 	
@@ -221,23 +221,15 @@ int optionChosen;
 bool exitFlag = 0;
 
 ///////////// VECTORS OF OBJECTS /////////////
-
-vector <Student> students = {Student(1,"Edward", 0), Student(2, "Rolando", 0)}; // Student (id, name, gpa)
-
+vector <Student> students = {Student(1,"Edward"), Student(2, "Rolando")}; // Student (id, name)
 vector <Course> courses = {Course(0, "Default", 0), Course(1, "Algebra", 5), Course(2, "Physics", 4), Course(3, "English", 3), Course(4, "Economics", 4)}; // Course (course_id, course_name, credits)
-
 vector <Grade> grades = {}; // Grade (student_id, course_id, grade)
-
-
-int amountGrades = 0;
-//vector<float> grades{};
-//vector<int> credits{};
 
 int main() { 
 
 	cout << "Hello! Welcome to the main program. \n \n";
 
-	while (exitFlag == false) {
+	while (!exitFlag) {
 		studentChosen = student_selector(students);
 		student_options_selector(grades, students, studentChosen);
 		exitFlag = ask_to_exit();

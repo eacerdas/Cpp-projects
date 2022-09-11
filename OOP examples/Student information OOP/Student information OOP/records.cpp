@@ -8,13 +8,11 @@
 	Student::Student() {
 		id = 0;
 		name = "";
-		gpa = 0;
 	}
 
-	Student::Student(int id_i, std::string name_i, float gpa_i) {
+	Student::Student(int id_i, std::string name_i) {
 		id = id_i;
 		name = name_i;
-		gpa = gpa_i;
 	}
 
 	int Student::get_id() {
@@ -23,10 +21,6 @@
 
 	std::string Student::get_name() {
 		return name;
-	}
-
-	float Student::get_gpa() {
-		return gpa;
 	}
 
 	void Student::set_id(int id_) {
@@ -103,6 +97,38 @@
 		return grade;
 	}
 
-	void Grade::set_grade(float grade_) {
+	void Grade::set_grade(char grade_) {
 		grade = grade_;
 	}
+
+/////////////////////// STUDENT RECORDS CLASS ///////////////////////
+
+	/*Grade::Grade() {
+		studentId = 0;
+		courseId = 0;
+		grade = {};
+
+	}
+
+	Grade::Grade(int student_id_i, int course_id_i, char grade_i) {
+		studentId = student_id_i;
+		courseId = course_id_i;
+		grade = grade_i;
+	}
+
+	int Grade::get_studentId() {
+		return studentId;
+	}
+
+	int Grade::get_courseId() {
+		return courseId;
+	}
+
+
+	char Grade::get_grade() {
+		return grade;
+	}
+
+	void Grade::set_grade(float grade_) {
+		grade = grade_;
+	}*/

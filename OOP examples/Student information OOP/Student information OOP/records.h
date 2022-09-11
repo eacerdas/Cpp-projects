@@ -12,15 +12,13 @@
 	private:
 		int id;
 		std::string name;
-		float gpa;
 	
 	public:
 		Student();
-		Student(int id_i, std::string name_i, float gpa_i);
+		Student(int id_i, std::string name_i);
 
 		int get_id();
 		std::string get_name();
-		float get_gpa();
 
 		void set_id(int id_);
 		void set_name(std::string name_);
@@ -50,6 +48,11 @@
 
 	/////////////////////// CLASS GRADE ///////////////////////
 	class Grade {
+	private:
+		int studentId;
+		int courseId;
+		char grade;
+
 	public:
 		Grade();
 		Grade(int student_id_i, int course_id_i, char grade_i);
@@ -58,13 +61,27 @@
 		int get_courseId();
 		char get_grade();
 
-		void set_grade(float grade_);
-
-	private:
-		int studentId;
-		int courseId;
-		char grade;
+		void set_grade(char grade_);	
 	};
+
+	/////////////////////// STUDENT RECORDS CLASS ///////////////////////
+	/*class StudentRecords {
+	private:
+		std::vector <Student> students;
+		std::vector <Course> courses;
+		std::vector <Grade> grades;
+
+		float get_numeric_grade();
+
+	public:
+		StudentRecords();
+
+		void add_student(int id);
+		void add
+
+
+	};*/
+
 
 
 #endif // !RECORDS_H
