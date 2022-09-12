@@ -13,6 +13,9 @@
 *.enc
 *.idb
 *.pdb
+*x64*
+*.tlog
+
 
 # Prerequisites
 *.d
