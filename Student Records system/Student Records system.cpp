@@ -6,7 +6,7 @@
 using namespace std;
 
 ///////////// FUNCTIONS /////////////
-int student_selector(StudentRecords SR_);
+int student_selector(StudentRecords& SR_);
 void update_students_name(StudentRecords& SR_, int studentChosenId_);
 void enroll_student_to_course(StudentRecords& SR_, int studentChosenId_);
 void get_students_enrolled_courses(StudentRecords SR_, int studentChosenId_);
@@ -19,19 +19,19 @@ bool ask_to_exit();
 	char grade_in;
 	int credits_in;
 	float gradePoints;
-	cout << "Please enter the grades for the following courses: ";
+	std::cout << "Please enter the grades for the following courses: ";
 
 	for (int i = 0; i < grades->size(); i++) {
 		bool validGrade = false;
 
 		int courseNumber = courses[0].get_id();
 
-		cout << "Grade for the course number " << courseNumber <<  ": ";
+		std::cout << "Grade for the course number " << courseNumber <<  ": ";
 
 		while (validGrade == false) {
 
 			validGrade = true;
-			cout << "Please enter the letter (a, b, c, d, f) corresponding to the grade for " << courses[0].get_name() << ": " << endl;
+			std::cout << "Please enter the letter (a, b, c, d, f) corresponding to the grade for " << courses[0].get_name() << ": " << endl;
 			cin >> grade_in;
 
 			switch (grade_in) {
@@ -52,11 +52,11 @@ bool ask_to_exit();
 			}
 
 			default: {
-				cout << "Incorrect value for grade has been entered. " << endl << endl;
+				std::cout << "Incorrect value for grade has been entered. " << endl << endl;
 				validGrade = false; break;
 			}
 			}
-			cout << "Please enter the credits number for the course number " << i + 1 << ": " << endl;
+			std::cout << "Please enter the credits number for the course number " << i + 1 << ": " << endl;
 			cin >> credits_in;
 		}
 		grades->push_back(gradePoints);
@@ -76,9 +76,9 @@ bool ask_to_exit();
 	GPA = totalGrades / totalCredits;
 
 	#ifdef DEBUG
-		cout << "TotalGrades: " << totalGrades << endl;
-		cout << "totalCredits: " << totalCredits << endl;
-		cout << "The GPA calculated in the method is: " << GPA << endl;
+		std::cout << "TotalGrades: " << totalGrades << endl;
+		std::cout << "totalCredits: " << totalCredits << endl;
+		std::cout << "The GPA calculated in the method is: " << GPA << endl;
 	#endif
 }*/
 
@@ -100,42 +100,46 @@ int main() {
 
 	initialize();
 
-	cout << "Hello! Welcome to the main program. \n \n";
+	std::cout << "Hello! Welcome to the main program. \n \n";
 
 	while (!exitFlag) {
 		studentChosenId = student_selector(SR);
-		student_options_selector(SR, studentChosenId);
+		
+		if (studentChosenId == 0) add_new_student(SR); //0 means a new student needs to be added
+		else student_options_selector(SR, studentChosenId); // other number means the id of the student that wants to be used
+
 		exitFlag = ask_to_exit();
 	}
 	return 0;
 }
 
-
-int student_selector(StudentRecords SR_) {
+int student_selector(StudentRecords &SR_) {
 	int userSelection;
 
-	cout << "These are the students already added to the student records system: \n";
+	std::cout << "These are the students already added to the student records system: \n";
 	for (int i = 0; i < SR_.get_students_list_size(); i++) {
-		cout << i + 1 << ". " << SR_.get_student_name(i) << "\n";
+		std::cout << i + 1 << ". " << SR_.get_student_name(i) << "\n";
 	}
 
-	cout << "\nWhich student do you want?: ";
-	cin >> userSelection;
+	std::cout << "\nWhich student do you want? Or press 0 to add a new student: ";
+	std::cin >> userSelection;
 
 	system("CLS");
 
-	cout << "\nThe student selected is: " << SR_.get_student_name(userSelection - 1) << "\n \n";
+	if (userSelection != 0) {
+		std::cout << "\nThe student selected is: " << SR_.get_student_name(userSelection - 1) << "\n \n";
+	}
 
 	return userSelection;
 } 
 
 void update_students_name(StudentRecords& SR_, int studentChosenId_) {
 	string newName;
-	cout << "Please type the new name for the student: ";
-	cin >> newName;
+	std::cout << "Please type the new name for the student: ";
+	std::cin >> newName;
 
 	SR_.set_student_name(newName, studentChosenId_);
-	cout << "The new name of the student is: " << SR_.get_student_name(studentChosenId_ - 1) << "\n \n";
+	std::cout << "The new name of the student is: " << SR_.get_student_name(studentChosenId_ - 1) << "\n \n";
 } 
 
 void enroll_student_to_course(StudentRecords& SR_, int studentChosenId_) {
@@ -144,25 +148,25 @@ void enroll_student_to_course(StudentRecords& SR_, int studentChosenId_) {
 	int courseId = 0;
 	char grade = '0'; // Default grade when the student just got enrolled
 
-	cout << "You are about to add a new course for " << SR_.get_student_name(studentChosenId_ - 1) << ": \n";
-	cout << "1. Algebra \n";
-	cout << "2. Physics \n";
-	cout << "3. English \n";
-	cout << "4. Economics \n";
+	std::cout << "You are about to add a new course for " << SR_.get_student_name(studentChosenId_ - 1) << ": \n";
+	std::cout << "1. Algebra \n";
+	std::cout << "2. Physics \n";
+	std::cout << "3. English \n";
+	std::cout << "4. Economics \n";
 
-	cout << "Please type the number of the course from the list above: \n";
-	cin >> courseId;
+	std::cout << "Please type the number of the course from the list above: \n";
+	std::cin >> courseId;
 	system("CLS");
 
 	SR_.add_grade(studentChosenId, courseId, grade);
 
-	cout << "The new course for " << SR_.get_student_name(studentChosenId_ - 1) << " is: ";
+	std::cout << "The new course for " << SR_.get_student_name(studentChosenId_ - 1) << " is: ";
 
 	switch (courseId) {
-	case 1: cout << "Algebra. \n \n"; break;
-	case 2: cout << "Physics. \n \n"; break;
-	case 3: cout << "English. \n \n"; break;
-	case 4: cout << "Economics. \n \n"; break;
+	case 1: std::cout << "Algebra. \n \n"; break;
+	case 2: std::cout << "Physics. \n \n"; break;
+	case 3: std::cout << "English. \n \n"; break;
+	case 4: std::cout << "Economics. \n \n"; break;
 	}
 }
 
@@ -174,29 +178,29 @@ void get_students_enrolled_courses(StudentRecords SR_, int studentChosenId_) {
 			counter++;
 			if (flag == 0) { // Prints this only the first time
 				flag = 1;
-				cout << SR_.get_student_name(studentChosenId_ - 1) << " is currently enrolled in: \n\n";
-				cout << " -------------------------  \n";
-				cout << "| Course ID | Course name | \n";
-				cout << " -------------------------  \n";
-				//cout << "|     1     |   Algebra   | \n";
-				//cout << "|     1     |   Physics   | \n";
-				//cout << "|     1     |   English   | \n";
-				//cout << "|     1     |  Economics  | \n";
+				std::cout << SR_.get_student_name(studentChosenId_ - 1) << " is currently enrolled in: \n\n";
+				std::cout << " -------------------------  \n";
+				std::cout << "| Course ID | Course name | \n";
+				std::cout << " -------------------------  \n";
+				//std::cout << "|     1     |   Algebra   | \n";
+				//std::cout << "|     1     |   Physics   | \n";
+				//std::cout << "|     1     |   English   | \n";
+				//std::cout << "|     1     |  Economics  | \n";
 			}
 
-			//cout << counter << ". ";
+			//std::cout << counter << ". ";
 
 			switch (SR_.Grades_get_course_id(i)) {
-			case 1: cout << "|     1     |   Algebra   | \n"; cout << " -------------------------  \n"; break;
-			case 2: cout << "|     2     |   Physics   | \n"; cout << " -------------------------  \n"; break;
-			case 3: cout << "|     3     |   English   | \n"; cout << " -------------------------  \n"; break;
-			case 4: cout << "|     4     |  Economics  | \n"; cout << " -------------------------  \n"; break;
+			case 1: std::cout << "|     1     |   Algebra   | \n"; std::cout << " -------------------------  \n"; break;
+			case 2: std::cout << "|     2     |   Physics   | \n"; std::cout << " -------------------------  \n"; break;
+			case 3: std::cout << "|     3     |   English   | \n"; std::cout << " -------------------------  \n"; break;
+			case 4: std::cout << "|     4     |  Economics  | \n"; std::cout << " -------------------------  \n"; break;
 			}
 		}
 	}
 
 	if (counter == 0) {
-		cout << "There are no courses in which this student is currently enrolled. \n";
+		std::cout << "There are no courses in which this student is currently enrolled. \n";
 	}
 
 }
@@ -205,14 +209,14 @@ void add_new_student(StudentRecords& SR_) {
 	int studentId = 0;
 	string studentName;
 
-	for (int i = 0; i < SR_.get_students_list_size(); i++) {
-		studentId = i + 1;
-	}
+	studentId = SR_.get_students_list_size() + 1;	
 
-	cout << "Enter the name of the new student: ";
-	cin >> studentName;
+	std::cout << "Enter the name of the new student: ";
+	std::cin >> studentName;
 
-	cout << "\n\nPlease note that the student's ID is going to be consecutive to the last student registered. ";
+	std::cout << "\n\nNew student successfully added:\n\n";
+	std::cout << "Student ID: " << studentId << "\nStudent Name: "<< studentName <<"\n";
+
 
 	SR.add_student(studentId, studentName);
 }
@@ -220,35 +224,33 @@ void add_new_student(StudentRecords& SR_) {
 void student_options_selector(StudentRecords& SR_, int studentChosenId_) {
 	int userSelection;
 	string optionSelected;
-	cout << "These are " << SR_.get_student_name(studentChosenId_ - 1) << "'s options: \n";
-	cout << "1. Enroll the student in a course \n";
-	cout << "2. Check for the courses in which the student is enrolled \n";
-	cout << "3. Update the name of the student \n";
-	cout << "4. Add a new student \n";
+	std::cout << "These are " << SR_.get_student_name(studentChosenId_ - 1) << "'s options: \n";
+	std::cout << "1. Enroll the student in a course \n";
+	std::cout << "2. Check for the courses in which the student is enrolled \n";
+	std::cout << "3. Update the name of the student \n";
+	std::cout << "4. Add a new student \n";
 
-	cout << "\nWhich option do you want?: ";
+	std::cout << "\nWhich option do you want?: ";
 
-	cin >> userSelection;
+	std::cin >> userSelection;
 
 	system("CLS");
 
-	cout << "The option selected is: ";
+	std::cout << "The option selected is: ";
 
 	switch (userSelection) {
-	case 1: cout << "Enroll " << SR_.get_student_name(studentChosenId_ - 1) << " in a course \n \n"; break;
-	case 2: cout << "Check for the courses in which " << SR_.get_student_name(studentChosenId_ - 1) << " is enrolled \n \n"; break;
-	case 3: cout << "Edit the name of " << SR_.get_student_name(studentChosenId_ - 1) << "\n \n"; break;
-	case 4: cout << "Add a new student \n \n"; break;
+	case 1: std::cout << "Enroll " << SR_.get_student_name(studentChosenId_ - 1) << " in a course \n \n"; break;
+	case 2: std::cout << "Check for the courses in which " << SR_.get_student_name(studentChosenId_ - 1) << " is enrolled \n \n"; break;
+	case 3: std::cout << "Edit the name of " << SR_.get_student_name(studentChosenId_ - 1) << "\n \n"; break;
+	//case 4: std::cout << "Add a new student \n \n"; break;
 	}
 
 	switch (userSelection) { // 1. add courses 2. add grades, 3. change name, 4. Get gpa
 	case 1: enroll_student_to_course(SR_, studentChosenId_); break;
 	case 2: get_students_enrolled_courses(SR_, studentChosenId_); break;
 	case 3: update_students_name(SR_, studentChosenId_); break;
-	case 4: add_new_student(SR); break;
+	//case 4: add_new_student(SR_); break;
 	}
-
-	//return userSelection;
 }
 
 void initialize() {
@@ -263,11 +265,11 @@ void initialize() {
 bool ask_to_exit() {
 	int userInput;
 	bool want_to_exit = false;
-	cout << "\nDo you want to finish the execution or to continue? : \n";
-	cout << "1. Continue \n";
-	cout << "2. Exit \n";
+	std::cout << "\nDo you want to finish the execution or to continue? : \n";
+	std::cout << "1. Continue \n";
+	std::cout << "2. Exit \n";
 
-	cin >> userInput;
+	std::cin >> userInput;
 
 	if (userInput == 1) {
 		want_to_exit = false; //do not finish the exec
