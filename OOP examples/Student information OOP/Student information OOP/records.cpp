@@ -83,11 +83,11 @@
 		grade = grade_i;
 	}
 
-	int Grade::get_studentId() {
+	int Grade::get_student_id() {
 		return studentId;
 	}
 
-	int Grade::get_courseId() {
+	int Grade::get_course_id() {
 		return courseId;
 	}
 
@@ -130,8 +130,8 @@
 	void StudentRecords::add_course(int id_, std::string name_, int credits_) {
 		courses.push_back(Course(id_, name_, credits_));
 	}
-	void StudentRecords::add_grade(int studentId_, int courseId_, char gradeId_) {
-		grades.push_back(Grade(studentId_, courseId_, gradeId_));
+	void StudentRecords::add_grade(int studentId_, int courseId_, char grade_) {
+		grades.push_back(Grade(studentId_, courseId_, grade_));
 	}
 
 	//GETTERS
@@ -140,15 +140,32 @@
 		return size;
 	}
 
+	int StudentRecords::get_grades_list_size() {
+		int size = grades.size();
+		return size;
+	}
+
 	std::string StudentRecords::get_student_name(int studentChosen_) {
 		return students[studentChosen_].get_name();
 	}
 
+	int StudentRecords::Student_get_student_id(int studentChosen_) {
+		return students[studentChosen_].get_id();
+	}
+
+	int StudentRecords::Grades_get_student_id(int studentChosen_) {
+		return grades[studentChosen_].get_student_id();
+	}
+
+	int StudentRecords::Grades_get_course_id(int courseChosen_) {
+		return grades[courseChosen_].get_course_id();
+	}
 
 	//SETTERS
 	void StudentRecords::set_student_name(std::string name_, int studentChosen_) {
 		students[studentChosen_-1].set_name(name_);
 	}
+
 
 	//METHODS
 

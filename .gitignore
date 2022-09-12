@@ -1,5 +1,24 @@
+#custom for VS projects 
+*.vsidx
+*.lock
+*.suo
+*.db
+*.ipch
+*.vs
+*.vcxproj*
+*.sln
+*.recipe
+*.ilk
+*.log
+*.enc
+*.idb
+*.pdb
+**
+
+
 # Prerequisites
 *.d
+
 
 # Compiled Object files
 *.slo

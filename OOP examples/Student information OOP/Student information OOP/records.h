@@ -57,8 +57,8 @@
 		Grade();
 		Grade(int studentId_i, int courseId_i, char grade_i);
 
-		int get_studentId();
-		int get_courseId();
+		int get_student_id();
+		int get_course_id();
 		char get_grade();
 
 		void set_grade(char grade_);	
@@ -74,18 +74,23 @@
 		float get_numeric_grade(char grade_in);
 
 	public:
-
 		void add_student(int id_, std::string name_);
 		void add_course(int id_, std::string name_, int credits_);
-		void add_grade(int studentId_, int courseId_, char gradeId_);
+		void add_grade(int studentId_, int courseId_, char grade_);
 
 		//GETTERS
-		float get_gpa(int studentChosen_);
 		int get_students_list_size();
+		int get_grades_list_size();
 		std::string get_student_name(int studentChosen_);
+		int Student_get_student_id(int studentChosen_);
+		int Grades_get_student_id(int studentChosen_);
+		int Grades_get_course_id(int courseChosen_);
 
 		//SETTERS 
 		void set_student_name(std::string name_, int studentChosen_);
+
+		//METHODS
+		//float get_gpa(int studentChosen_);
 	};
 
 #endif // !RECORDS_H
