@@ -145,16 +145,16 @@ int StudentRecords::get_grades_list_size() {
 	return size;
 }
 
-std::string StudentRecords::get_student_name(int studentChosen_) {
-	return students[studentChosen_].get_name();
+std::string StudentRecords::get_student_name(int studentChosenId_) {
+	return students[studentChosenId_].get_name();
 }
 
-int StudentRecords::Student_get_student_id(int studentChosen_) {
-	return students[studentChosen_].get_id();
+int StudentRecords::Student_get_student_id(int studentChosenId_) {
+	return students[studentChosenId_].get_id();
 }
 
-int StudentRecords::Grades_get_student_id(int studentChosen_) {
-	return grades[studentChosen_].get_student_id();
+int StudentRecords::Grades_get_student_id(int studentChosenId_) {
+	return grades[studentChosenId_].get_student_id();
 }
 
 int StudentRecords::Grades_get_course_id(int courseChosen_) {
@@ -162,13 +162,13 @@ int StudentRecords::Grades_get_course_id(int courseChosen_) {
 }
 
 //SETTERS
-void StudentRecords::set_student_name(std::string name_, int studentChosen_) {
-	students[studentChosen_ - 1].set_name(name_);
+void StudentRecords::set_student_name(std::string name_, int studentChosenId_) {
+	students[studentChosenId_ - 1].set_name(name_);
 }
 
 
 //METHODS
 
-/*float StudentRecords::get_gpa(int studentChosen_) {
+/*float StudentRecords::get_gpa(int studentChosenId_) {
 	//for later
 }*/

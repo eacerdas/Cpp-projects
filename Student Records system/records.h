@@ -81,16 +81,16 @@ public:
 	//GETTERS
 	int get_students_list_size();
 	int get_grades_list_size();
-	std::string get_student_name(int studentChosen_);
-	int Student_get_student_id(int studentChosen_);
-	int Grades_get_student_id(int studentChosen_);
+	std::string get_student_name(int studentChosenId_);
+	int Student_get_student_id(int studentChosenId_);
+	int Grades_get_student_id(int studentChosenId_);
 	int Grades_get_course_id(int courseChosen_);
 
 	//SETTERS 
-	void set_student_name(std::string name_, int studentChosen_);
+	void set_student_name(std::string name_, int studentChosenId_);
 
 	//METHODS
-	//float get_gpa(int studentChosen_);
+	//float get_gpa(int studentChosenId_);
 };
 
 #endif // !RECORDS_H
