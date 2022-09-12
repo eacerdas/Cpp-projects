@@ -7,11 +7,11 @@ using namespace std;
 
 ///////////// FUNCTIONS /////////////
 int student_selector(StudentRecords SR_);
-void update_students_name(StudentRecords &SR_, int studentChosen_);
-void enroll_to_course(StudentRecords &SR_, int studentChosen_);
+void update_students_name(StudentRecords& SR_, int studentChosen_);
+void enroll_to_course(StudentRecords& SR_, int studentChosen_);
 void get_enrolled_courses(StudentRecords SR_, int studentChosen_);
-void add_new_student(StudentRecords &SR, vector <Student> students_list);
-void student_options_selector(StudentRecords &SR_, int studentChosen_);
+void add_new_student(StudentRecords& SR, vector <Student> students_list);
+void student_options_selector(StudentRecords& SR_, int studentChosen_);
 
 void initialize();
 bool ask_to_exit();
@@ -96,7 +96,7 @@ StudentRecords SR;
 //vector <Course> courses = {Course(0, "Default", 0), Course(1, "Algebra", 5), Course(2, "Physics", 4), Course(3, "English", 3), Course(4, "Economics", 4)}; // Course (course_id, course_name, credits)
 //vector <Grade> grades = {}; // Grade (student_id, course_id, grade)
 
-int main() { 
+int main() {
 
 	initialize();
 
@@ -130,7 +130,7 @@ int student_selector(StudentRecords SR_) {
 	return userSelection;
 } // this one is done
 
-void update_students_name(StudentRecords &SR_, int studentChosen_)  { 
+void update_students_name(StudentRecords& SR_, int studentChosen_) {
 	string newName;
 	cout << "Please type the new name for the student: ";
 	cin >> newName;
@@ -139,9 +139,9 @@ void update_students_name(StudentRecords &SR_, int studentChosen_)  {
 	cout << "The new name of the student is: " << SR_.get_student_name(studentChosen_ - 1) << "\n \n";
 } //this one is done
 
-void enroll_to_course(StudentRecords &SR_, int studentChosen_) {
+void enroll_to_course(StudentRecords& SR_, int studentChosen_) {
 
-	int studentId = SR_.Student_get_student_id(studentChosen -1);
+	int studentId = SR_.Student_get_student_id(studentChosen - 1);
 	int courseId;
 	char grade = '0'; // Default grade when the student just got enrolled
 
@@ -174,15 +174,15 @@ void get_enrolled_courses(StudentRecords SR_, int studentChosen_) {
 		if (studentChosen_ == SR_.Grades_get_student_id(studentChosen - 1)) {
 			counter++;
 			if (flag == 0) { // Prints this only the first time
-				flag = 1; 
-				cout << SR_.get_student_name(studentChosen_ -1) << " is currently enrolled in: \n\n";
+				flag = 1;
+				cout << SR_.get_student_name(studentChosen_ - 1) << " is currently enrolled in: \n\n";
 				cout << " -------------------------  \n";
 				cout << "| Course ID | Course name | \n";
 				cout << " -------------------------  \n";
-			  //cout << "|     1     |   Algebra   | \n";
-			  //cout << "|     1     |   Physics   | \n";
-			  //cout << "|     1     |   English   | \n";
-			  //cout << "|     1     |  Economics  | \n";
+				//cout << "|     1     |   Algebra   | \n";
+				//cout << "|     1     |   Physics   | \n";
+				//cout << "|     1     |   English   | \n";
+				//cout << "|     1     |  Economics  | \n";
 			}
 
 			//cout << counter << ". ";
@@ -202,7 +202,7 @@ void get_enrolled_courses(StudentRecords SR_, int studentChosen_) {
 
 }
 
-void add_new_student(StudentRecords &SR, vector <Student> students_list) {
+void add_new_student(StudentRecords& SR, vector <Student> students_list) {
 	int studentId = 0;
 	string studentName;
 
@@ -218,10 +218,10 @@ void add_new_student(StudentRecords &SR, vector <Student> students_list) {
 	SR.add_student(studentId, studentName);
 } // this one is done
 
-void student_options_selector(StudentRecords &SR_, int studentChosen_) {
+void student_options_selector(StudentRecords& SR_, int studentChosen_) {
 	int userSelection;
 	string optionSelected;
-	cout << "These are " << SR_.get_student_name(studentChosen_ -1) << "'s options: \n";
+	cout << "These are " << SR_.get_student_name(studentChosen_ - 1) << "'s options: \n";
 	cout << "1. Enroll the student in a course \n";
 	cout << "2. Check for the courses in which the student is enrolled \n";
 	cout << "3. Update the name of the student \n";
@@ -236,14 +236,14 @@ void student_options_selector(StudentRecords &SR_, int studentChosen_) {
 	cout << "The option selected is: ";
 
 	switch (userSelection) {
-	case 1: cout << "Enroll "			  << SR_.get_student_name(studentChosen_ - 1) << " in a course \n \n"; break;
+	case 1: cout << "Enroll " << SR_.get_student_name(studentChosen_ - 1) << " in a course \n \n"; break;
 	case 2: cout << "Check for the courses in which " << SR_.get_student_name(studentChosen_ - 1) << " is enrolled \n \n"; break;
-	case 3: cout << "Edit the name of "			  << SR_.get_student_name(studentChosen_ - 1) << "\n \n"; break;
+	case 3: cout << "Edit the name of " << SR_.get_student_name(studentChosen_ - 1) << "\n \n"; break;
 	case 4: cout << "Add a new student \n \n"; break;
 	}
 
 	switch (userSelection) { // 1. add courses 2. add grades, 3. change name, 4. Get gpa
-	case 1: enroll_to_course(SR_, studentChosen_); break; 
+	case 1: enroll_to_course(SR_, studentChosen_); break;
 	case 2: get_enrolled_courses(SR_, studentChosen_); break;
 	case 3: update_students_name(SR_, studentChosen_); break;
 	case 4: break; //add_new_student(SR, students_list);
