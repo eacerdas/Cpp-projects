@@ -13,8 +13,6 @@
 *.enc
 *.idb
 *.pdb
-**
-
 
 # Prerequisites
 *.d
