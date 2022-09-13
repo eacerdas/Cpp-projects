@@ -228,7 +228,7 @@ void student_options_selector(StudentRecords& SR_, int studentChosenId_) {
 	std::cout << "1. Enroll the student in a course \n";
 	std::cout << "2. Check for the courses in which the student is enrolled \n";
 	std::cout << "3. Update the name of the student \n";
-	std::cout << "4. Add a new student \n";
+	std::cout << "4. Get the GPA of the student \n";
 
 	std::cout << "\nWhich option do you want?: ";
 
@@ -242,14 +242,14 @@ void student_options_selector(StudentRecords& SR_, int studentChosenId_) {
 	case 1: std::cout << "Enroll " << SR_.get_student_name(studentChosenId_ - 1) << " in a course \n \n"; break;
 	case 2: std::cout << "Check for the courses in which " << SR_.get_student_name(studentChosenId_ - 1) << " is enrolled \n \n"; break;
 	case 3: std::cout << "Edit the name of " << SR_.get_student_name(studentChosenId_ - 1) << "\n \n"; break;
-	//case 4: std::cout << "Add a new student \n \n"; break;
+	case 4: std::cout << "Get the GPA of " << SR_.get_student_name(studentChosenId_ - 1) << "\n \n"; break;
 	}
 
 	switch (userSelection) { // 1. add courses 2. add grades, 3. change name, 4. Get gpa
 	case 1: enroll_student_to_course(SR_, studentChosenId_); break;
 	case 2: get_students_enrolled_courses(SR_, studentChosenId_); break;
 	case 3: update_students_name(SR_, studentChosenId_); break;
-	//case 4: add_new_student(SR_); break;
+	case 4: SR_.get_gpa(studentChosenId_); break;
 	}
 }
 
@@ -260,6 +260,8 @@ void initialize() {
 	SR.add_course(2, "Physics", 4);
 	SR.add_course(3, "English", 3);
 	SR.add_course(4, "Economics", 4);
+	SR.add_grade(1, 1, 'A');
+	SR.add_grade(1, 3, 'C');
 }
 
 bool ask_to_exit() {

@@ -91,7 +91,6 @@ int Grade::get_course_id() {
 	return courseId;
 }
 
-
 char Grade::get_grade() {
 	return grade;
 }
@@ -103,25 +102,28 @@ void Grade::set_grade(char grade_) {
 /////////////////////// STUDENT RECORDS CLASS ///////////////////////
 
 float StudentRecords::get_numeric_grade(char grade_in) {
-	float numericGrade = 0.0f;
+
+	float gradePoints = 0.0f;
+
 	switch (grade_in) {
-	case 'a': {
-		numericGrade = 4.0f; break;
+	case 'A': {
+		gradePoints = 4.0f; break;
 	}
-	case 'b': {
-		numericGrade = 3.0f; break;
+	case 'B': {
+		gradePoints = 3.0f; break;
 	}
-	case 'c': {
-		numericGrade = 2.0f; break;
+	case 'C': {
+		gradePoints = 2.0f; break;
 	}
-	case 'd': {
-		numericGrade = 1.0f; break;
+	case 'D': {
+		gradePoints = 1.0f; break;
 	}
-	case 'f': {
-		numericGrade = 0.0f; break;
+	case 'F': {
+		gradePoints = 0.0f; break;
 	}
 	}
-	return numericGrade;
+
+	return gradePoints;
 }
 
 void StudentRecords::add_student(int id_, std::string name_) {
@@ -161,14 +163,35 @@ int StudentRecords::Grades_get_course_id(int courseChosen_) {
 	return grades[courseChosen_].get_course_id();
 }
 
+
 //SETTERS
 void StudentRecords::set_student_name(std::string name_, int studentChosenId_) {
 	students[studentChosenId_ - 1].set_name(name_);
 }
 
-
 //METHODS
+void StudentRecords::get_gpa(int studentChosenId_) {
+	int totalCredits = 0;
+	float totalGrades = 0.0f;
+	float numericGrade = 0.0f;
+	float gpa = 0.0f;
+	std::cout << "The gpa for " << students[studentChosenId_ - 1].get_name() << " is: ";
+	
+	//adds the total amount of credits
+	for (int i = 0; i < get_grades_list_size(); i++) {
+		if (studentChosenId_ == grades[i].get_student_id()) {
+			totalCredits = totalCredits + courses[i].get_credits();
+		}
+	}
 
-/*float StudentRecords::get_gpa(int studentChosenId_) {
-	//for later
-}*/
+	//looks for the courses in which the student is enrolled
+	for (int i = 0; i < get_grades_list_size(); i++) {
+		if (studentChosenId_ == grades[i].get_student_id()) {
+			numericGrade = get_numeric_grade(grades[i].get_grade());
+			totalGrades = totalGrades + (courses[grades[i].get_course_id() - 1].get_credits()) * numericGrade;
+		}
+	}
+
+	gpa = totalGrades / totalCredits;
+	std::cout << gpa << "\n";
+}

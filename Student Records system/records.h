@@ -90,7 +90,7 @@ public:
 	void set_student_name(std::string name_, int studentChosenId_);
 
 	//METHODS
-	//float get_gpa(int studentChosenId_);
+	void get_gpa(int studentChosenId_);
 };
 
 #endif // !RECORDS_H
